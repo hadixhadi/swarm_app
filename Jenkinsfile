@@ -11,7 +11,7 @@ node('demo'){
 	}
 
 	stage ('Push'){
-		docker.withRegistry(registry, 'registry') {
+		docker.withRegistry(registry) {
 			docker.image(imageName).push(env.BUILD_ID)
 		}
 	}
