@@ -5,7 +5,8 @@ pipeline{
 		REGISTRY = "http://sw.docker.org"
 		IMAGE_NAME = "web-fe"
 		IMAGE_TAG = "${BUILD_ID}"
-		STACK_NAME = "test"
+		STACK_NAME = "test_jenkins"
+		IMAGE_FULL_NAME = "${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
 	}
 
 	stages{
@@ -20,7 +21,7 @@ pipeline{
 		stage ("Build"){
 			steps{
 			   script{
-				docker.build($IMAGE_NAME)
+				docker.build(env.IMAGE_NAME)
 				}
 			}
 		}
@@ -34,6 +35,18 @@ pipeline{
                 		    }
 				}
 
+			}
+		}
+
+
+
+		stage ("Deploy"){
+			agent {label "Manager"}
+
+			steps{
+				sh """
+					IMAGE=${IMAGE_FULL_NAME} docker stack deploy -c /var/swarm/stack.yml ${STACK_NAME}
+				"""
 			}
 		}
 	}
