@@ -45,7 +45,7 @@ pipeline{
 
 			steps{
 				sh """
-					IMAGE=${IMAGE_FULL_NAME} docker stack deploy -c stack.yml ${STACK_NAME}
+					IMAGE=${IMAGE_FULL_NAME} docker stack deploy -c /var/jenkins/swarm/stack.yml ${STACK_NAME}
 				"""
 			}
 		}
