@@ -6,7 +6,7 @@ pipeline{
 		IMAGE_NAME = "web-fe"
 		IMAGE_TAG = "${BUILD_ID}"
 		STACK_NAME = "test_jenkins"
-		IMAGE_FULL_NAME = "${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+		IMAGE_FULL_NAME = "sw.docker.org/${IMAGE_NAME}:${IMAGE_TAG}"
 	}
 
 	stages{
